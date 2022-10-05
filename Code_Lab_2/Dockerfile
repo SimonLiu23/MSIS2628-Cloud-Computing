@@ -1,13 +1,14 @@
+#specifying python version
 FROM python:3.10.7
 
-#need root to install python and jupyter first
+#need root to install dependencies and packages first
 USER root
 
 #copy requirements to docker file and install libraries. Was made using pip freeze > requirements.txt
 COPY requirements.txt .
 RUN pip3 install --no-cache-dir -r requirements.txt
 
-#define working directory, files, and permissions
+#making notebook directory, downloading notebook file, and granting permissions
 RUN mkdir ./notebooks
 RUN wget https://raw.githubusercontent.com/Simonsays90/MSIS2628-Cloud-Computing/main/Code_Lab_2/test.ipynb -P ./notebooks
 RUN chown -R ${JUPYTER_USER} ./notebooks
